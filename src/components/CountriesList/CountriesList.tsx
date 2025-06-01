@@ -1,36 +1,23 @@
+import { type FC } from 'react';
+import { Link } from 'react-router-dom';
 import { useGetAllCountriesQuery } from 'features/countries/countriesApi';
+import 'components/CountriesList/countries-list.scss';
 
-const CountriesList = () => {
+const CountriesList: FC = () => {
   const { data, isLoading, error } = useGetAllCountriesQuery();
 
   if (isLoading) return <p>Загрузка...</p>;
   if (error) return <p>Ошибка загрузки</p>;
 
   return (
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-        gap: '1rem',
-      }}
-    >
+    <div className='countries-wrapper container'>
       {data?.map((country) => (
-        <div
-          key={country.cca3}
-          style={{
-            border: '1px solid #ccc',
-            borderRadius: '8px',
-            padding: '1rem',
-            textAlign: 'center',
-          }}
-        >
-          <img
-            src={country.flags.svg}
-            alt={country.name.common}
-            style={{ width: '100%', height: '100px', objectFit: 'contain' }}
-          />
-          <p>{country.name.common}</p>
-        </div>
+        <Link to='#'>
+          <div key={country.cca3} className='country-card'>
+            <img src={country.flags.svg} alt={country.name.common} className='country-flag' />
+            <p>{country.name.common}</p>
+          </div>
+        </Link>
       ))}
     </div>
   );
