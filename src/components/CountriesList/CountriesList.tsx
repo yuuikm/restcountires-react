@@ -1,14 +1,14 @@
-import { useState } from 'react';
 import { useGetAllCountriesQuery } from 'features/countries/countriesApi';
-import Filter from 'components/FIlter/Filter';
-import CountryCard from 'components/CountriesList/CountryCard/CountryCard';
+import { useSelector } from 'react-redux';
+import CountryCard from './CountryCard/CountryCard';
 import 'components/CountriesList/countries-list.scss';
+import Filter from 'components/FIlter/Filter';
+import { type RootState } from '@/app/store';
 
 const CountriesList = () => {
   const { data, isLoading, error } = useGetAllCountriesQuery();
-  const [search, setSearch] = useState('');
-  const [region, setRegion] = useState('');
-  const [sort, setSort] = useState('');
+
+  const { search, region, sort } = useSelector((state: RootState) => state.filters);
 
   const regions = Array.from(new Set((data ?? []).map((c) => c.region))).filter(Boolean);
 
@@ -28,19 +28,14 @@ const CountriesList = () => {
   }
 
   if (sort === 'asc') {
-    filtered = filtered.slice().sort((a, b) => a.population - b.population);
+    filtered = [...filtered].sort((a, b) => a.population - b.population);
   } else if (sort === 'desc') {
-    filtered = filtered.slice().sort((a, b) => b.population - a.population);
+    filtered = [...filtered].sort((a, b) => b.population - a.population);
   }
 
   return (
     <>
-      <Filter
-        onSearch={setSearch}
-        onRegionChange={setRegion}
-        onSortChange={setSort}
-        regions={regions}
-      />
+      <Filter regions={regions} />
 
       <div className='countries-wrapper container'>
         {filtered.map((country) => (

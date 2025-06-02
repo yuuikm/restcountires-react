@@ -1,39 +1,37 @@
-import { type FC } from 'react';
-import { useTranslation } from 'react-i18next';
-import 'components/FIlter/filter.scss';
-import LanguageSwitcher from 'components/LanguageSwitcher/LanguageSwitcher';
+import { useDispatch, useSelector } from 'react-redux';
+import { setRegion, setSearch, setSort } from 'features/filters/filtersSlice';
+import { type RootState } from '@/app/store';
 
 interface FilterProps {
-  onSearch: (value: string) => void;
-  onRegionChange: (value: string) => void;
-  onSortChange: (value: string) => void;
   regions: string[];
 }
 
-const Filter: FC<FilterProps> = ({ onSearch, onRegionChange, onSortChange, regions }) => {
-  const { t } = useTranslation();
+const Filter = ({ regions }: FilterProps) => {
+  const dispatch = useDispatch();
+  const { search, region, sort } = useSelector((state: RootState) => state.filters);
 
   return (
-    <div className='filters'>
+    <div className='filter'>
       <input
-        type='text'
-        placeholder={t('search_placeholder')}
-        onChange={(e) => onSearch(e.target.value)}
+        placeholder='Поиск...'
+        value={search}
+        onChange={(e) => dispatch(setSearch(e.target.value))}
       />
-      <select onChange={(e) => onRegionChange(e.target.value)}>
-        <option value=''>{t('all_regions')}</option>
-        {regions.map((region) => (
-          <option key={region} value={region}>
-            {region}
+
+      <select value={region} onChange={(e) => dispatch(setRegion(e.target.value))}>
+        <option value=''>Все регионы</option>
+        {regions.map((r) => (
+          <option key={r} value={r}>
+            {r}
           </option>
         ))}
       </select>
-      <select onChange={(e) => onSortChange(e.target.value)}>
-        <option value=''>{t('sort_none')}</option>
-        <option value='asc'>{t('sort_asc')}</option>
-        <option value='desc'>{t('sort_desc')}</option>
+
+      <select value={sort} onChange={(e) => dispatch(setSort(e.target.value as any))}>
+        <option value=''>Без сортировки</option>
+        <option value='asc'>По населению</option>
+        <option value='desc'>По населению</option>
       </select>
-      <LanguageSwitcher />
     </div>
   );
 };
