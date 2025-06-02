@@ -2,7 +2,7 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
 i18n.use(initReactI18next).init({
-  lng: 'en',
+  lng: localStorage.getItem('i18nextLng') || 'en',
   fallbackLng: 'en',
   interpolation: { escapeValue: false },
   resources: {

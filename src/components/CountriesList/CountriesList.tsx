@@ -1,10 +1,10 @@
 import { useGetAllCountriesQuery } from 'features/countries/countriesApi';
 import { useSelector } from 'react-redux';
-import CountryCard from './CountryCard/CountryCard';
-import 'components/CountriesList/countries-list.scss';
-import Filter from 'components/FIlter/Filter';
 import { type RootState } from '@/app/store';
 import { useTranslation } from 'react-i18next';
+import CountryCard from './CountryCard/CountryCard';
+import Filter from 'components/FIlter/Filter';
+import 'components/CountriesList/countries-list.scss';
 
 const CountriesList = () => {
   const { data, isLoading, error } = useGetAllCountriesQuery();

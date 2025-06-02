@@ -1,12 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { setRegion, setSearch, setSort } from 'features/filters/filtersSlice';
 import { type RootState } from '@/app/store';
-import { useTranslation } from 'react-i18next';
 import 'components/FIlter/filter.scss';
 
 interface FilterProps {
   regions: string[];
 }
+
+type SortType = '' | 'asc' | 'desc';
 
 const Filter = ({ regions }: FilterProps) => {
   const dispatch = useDispatch();
@@ -31,7 +33,13 @@ const Filter = ({ regions }: FilterProps) => {
         ))}
       </select>
 
-      <select value={sort} onChange={(e) => dispatch(setSort(e.target.value as any))}>
+      <select
+        value={sort}
+        onChange={(e) => {
+          const value = e.target.value as SortType;
+          dispatch(setSort(value));
+        }}
+      >
         <option value=''>{t('sort_none')}</option>
         <option value='asc'>{t('sort_asc')}</option>
         <option value='desc'>{t('sort_desc')}</option>

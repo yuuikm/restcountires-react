@@ -6,11 +6,14 @@ interface FiltersState {
   sort: 'asc' | 'desc' | '';
 }
 
-const initialState: FiltersState = {
-  search: '',
-  region: '',
-  sort: '',
-};
+const savedFilters = localStorage.getItem('filters');
+const initialState: FiltersState = savedFilters
+  ? JSON.parse(savedFilters)
+  : {
+      search: '',
+      region: '',
+      sort: '',
+    };
 
 const filtersSlice = createSlice({
   name: 'filters',
@@ -18,17 +21,21 @@ const filtersSlice = createSlice({
   reducers: {
     setSearch(state, action: PayloadAction<string>) {
       state.search = action.payload;
+      localStorage.setItem('filters', JSON.stringify(state));
     },
     setRegion(state, action: PayloadAction<string>) {
       state.region = action.payload;
+      localStorage.setItem('filters', JSON.stringify(state));
     },
     setSort(state, action: PayloadAction<'asc' | 'desc' | ''>) {
       state.sort = action.payload;
+      localStorage.setItem('filters', JSON.stringify(state));
     },
     resetFilters(state) {
       state.search = '';
       state.region = '';
       state.sort = '';
+      localStorage.setItem('filters', JSON.stringify(state));
     },
   },
 });

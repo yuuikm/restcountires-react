@@ -14,4 +14,11 @@ export interface Country {
     official?: string;
     nativeName?: Record<string, { official: string; common: string }>;
   };
+  translations?: Record<
+    string,
+    {
+      official: string;
+      common: string;
+    }
+  >;
 }
