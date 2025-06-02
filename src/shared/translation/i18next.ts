@@ -13,6 +13,8 @@ i18n.use(initReactI18next).init({
         sort_none: 'No sorting',
         sort_asc: 'Population ascending',
         sort_desc: 'Population descending',
+        loading: 'Loading...',
+        loading_error: 'Loading error',
       },
     },
     ru: {
@@ -22,6 +24,8 @@ i18n.use(initReactI18next).init({
         sort_none: 'Без сортировки',
         sort_asc: 'По возрастанию населения',
         sort_desc: 'По убыванию населения',
+        loading: 'Загрузка...',
+        loading_error: 'Ошибка загрузки',
       },
     },
   },

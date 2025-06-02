@@ -4,16 +4,16 @@ import CountryCard from './CountryCard/CountryCard';
 import 'components/CountriesList/countries-list.scss';
 import Filter from 'components/FIlter/Filter';
 import { type RootState } from '@/app/store';
+import { useTranslation } from 'react-i18next';
 
 const CountriesList = () => {
   const { data, isLoading, error } = useGetAllCountriesQuery();
-
   const { search, region, sort } = useSelector((state: RootState) => state.filters);
-
   const regions = Array.from(new Set((data ?? []).map((c) => c.region))).filter(Boolean);
+  const { t } = useTranslation();
 
-  if (isLoading) return <p>Загрузка...</p>;
-  if (error) return <p>Ошибка загрузки</p>;
+  if (isLoading) return <p>{t('loading')}</p>;
+  if (error) return <p>{t('loading_error')}</p>;
 
   let filtered = data || [];
 

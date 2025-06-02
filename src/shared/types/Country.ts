@@ -2,6 +2,7 @@ export interface Country {
   cca3: string;
   name: {
     common: string;
+    official: string;
   };
   translations: {
     [key: string]: {

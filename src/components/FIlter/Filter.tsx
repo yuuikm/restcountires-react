@@ -1,6 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { setRegion, setSearch, setSort } from 'features/filters/filtersSlice';
 import { type RootState } from '@/app/store';
+import { useTranslation } from 'react-i18next';
+import 'components/FIlter/filter.scss';
 
 interface FilterProps {
   regions: string[];
@@ -10,16 +12,18 @@ const Filter = ({ regions }: FilterProps) => {
   const dispatch = useDispatch();
   const { search, region, sort } = useSelector((state: RootState) => state.filters);
 
+  const { t } = useTranslation();
+
   return (
-    <div className='filter'>
+    <div className='filter-wrapper container'>
       <input
-        placeholder='Поиск...'
+        placeholder={t('search_placeholder')}
         value={search}
         onChange={(e) => dispatch(setSearch(e.target.value))}
       />
 
       <select value={region} onChange={(e) => dispatch(setRegion(e.target.value))}>
-        <option value=''>Все регионы</option>
+        <option value=''>{t('all_regions')}</option>
         {regions.map((r) => (
           <option key={r} value={r}>
             {r}
@@ -28,9 +32,9 @@ const Filter = ({ regions }: FilterProps) => {
       </select>
 
       <select value={sort} onChange={(e) => dispatch(setSort(e.target.value as any))}>
-        <option value=''>Без сортировки</option>
-        <option value='asc'>По населению</option>
-        <option value='desc'>По населению</option>
+        <option value=''>{t('sort_none')}</option>
+        <option value='asc'>{t('sort_asc')}</option>
+        <option value='desc'>{t('sort_desc')}</option>
       </select>
     </div>
   );

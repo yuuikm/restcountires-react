@@ -1,0 +1,22 @@
+.filter-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  padding-bottom: 30px;
+
+  @media (max-width: 800px) {
+    gap: 30px;
+  }
+
+  input,
+  select {
+    font-size: 16px;
+    padding: 10px 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    min-width: 200px;
+    outline: none;
+    transition: border 0.2s;
+  }
+}
