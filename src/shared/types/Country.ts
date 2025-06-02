@@ -1,10 +1,12 @@
 export interface Country {
-  cca3: string
+  cca3: string;
   name: {
-    common: string
-  }
+    common: string;
+  };
   flags: {
-    svg: string
-    png: string
-  }
+    svg: string;
+    png: string;
+  };
+  region: string;
+  population: number;
 }
