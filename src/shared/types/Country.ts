@@ -3,6 +3,12 @@ export interface Country {
   name: {
     common: string;
   };
+  translations: {
+    [key: string]: {
+      official: string;
+      common: string;
+    };
+  };
   flags: {
     svg: string;
     png: string;

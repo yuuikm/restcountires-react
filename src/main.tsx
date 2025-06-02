@@ -5,6 +5,7 @@ import './index.scss';
 import App from './app/App.tsx';
 import { Provider } from 'react-redux';
 import { store } from './app/store';
+import 'shared/translation/i18next';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

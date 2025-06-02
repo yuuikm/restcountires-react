@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useGetAllCountriesQuery } from 'features/countries/countriesApi';
 import Filter from 'components/FIlter/Filter';
+import CountryCard from 'components/CountriesList/CountryCard/CountryCard';
 import 'components/CountriesList/countries-list.scss';
 
 const CountriesList = () => {
@@ -43,10 +44,7 @@ const CountriesList = () => {
 
       <div className='countries-wrapper container'>
         {filtered.map((country) => (
-          <div key={country.cca3} className='country-card'>
-            <img src={country.flags.svg} alt={country.name.common} className='country-flag' />
-            <p>{country.name.common}</p>
-          </div>
+          <CountryCard key={country.cca3} country={country} />
         ))}
       </div>
     </>

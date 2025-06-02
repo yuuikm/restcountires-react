@@ -1,5 +1,7 @@
 import { type FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import 'components/FIlter/filter.scss';
+import LanguageSwitcher from 'components/LanguageSwitcher/LanguageSwitcher';
 
 interface FilterProps {
   onSearch: (value: string) => void;
@@ -9,15 +11,17 @@ interface FilterProps {
 }
 
 const Filter: FC<FilterProps> = ({ onSearch, onRegionChange, onSortChange, regions }) => {
+  const { t } = useTranslation();
+
   return (
     <div className='filters'>
       <input
         type='text'
-        placeholder='Поиск по названию...'
+        placeholder={t('search_placeholder')}
         onChange={(e) => onSearch(e.target.value)}
       />
       <select onChange={(e) => onRegionChange(e.target.value)}>
-        <option value=''>Все регионы</option>
+        <option value=''>{t('all_regions')}</option>
         {regions.map((region) => (
           <option key={region} value={region}>
             {region}
@@ -25,10 +29,11 @@ const Filter: FC<FilterProps> = ({ onSearch, onRegionChange, onSortChange, regio
         ))}
       </select>
       <select onChange={(e) => onSortChange(e.target.value)}>
-        <option value=''>Без сортировки</option>
-        <option value='asc'>По возрастанию населения</option>
-        <option value='desc'>По убыванию населения</option>
+        <option value=''>{t('sort_none')}</option>
+        <option value='asc'>{t('sort_asc')}</option>
+        <option value='desc'>{t('sort_desc')}</option>
       </select>
+      <LanguageSwitcher />
     </div>
   );
 };
